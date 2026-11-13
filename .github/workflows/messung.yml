@@ -1,0 +1,61 @@
+name: Messung 908-Anschluss
+
+on:
+  schedule:
+    # Mo-Fr, jeweils vor den drei Zeitfenstern (Zeiten in Europe/Berlin)
+    - cron: "40 5 * * 1-5"
+      timezone: "Europe/Berlin"
+    - cron: "10 11 * * 1-5"
+      timezone: "Europe/Berlin"
+    - cron: "40 16 * * 1-5"
+      timezone: "Europe/Berlin"
+  workflow_dispatch:
+    inputs:
+      fenster:
+        description: "morgens, mittags oder abends (leer = nach Uhrzeit)"
+        required: false
+      test:
+        description: "Testlauf: nur ein Abruf, nichts speichern"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: messung
+  cancel-in-progress: false
+
+jobs:
+  messen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Abhaengigkeiten
+        run: pip install -r requirements.txt
+
+      - name: Messen
+        env:
+          FENSTER: ${{ github.event.inputs.fenster }}
+          TEST: ${{ github.event.inputs.test }}
+        run: |
+          ARGS=""
+          if [ -n "$FENSTER" ]; then ARGS="$ARGS --fenster $FENSTER"; fi
+          if [ "$TEST" = "true" ]; then ARGS="$ARGS --test"; fi
+          python monitor.py $ARGS
+
+      - name: Ergebnisse speichern
+        run: |
+          git config user.name "messung-bot"
+          git config user.email "messung-bot@users.noreply.github.com"
+          git add data/messungen.csv 2>/dev/null || exit 0
+          git diff --cached --quiet && exit 0
+          git commit -m "Messung $(date +%F) $(TZ=Europe/Berlin date +%H:%M)"
+          git pull --rebase
+          git push
