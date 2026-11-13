@@ -6,13 +6,12 @@ Misst werktags, ob man mit der 908 aus dem Babenberger Viertel am ZOB den Bus zu
 - **Gemessen wird:** Verspätung der 908 am ZOB, geplanter und tatsächlicher Anschluss, verpasst ja/nein, Mehrzeit bis Bahnhof
 - **Ergebnisse:** `data/messungen.csv`, wird nach jedem Zeitfenster automatisch gespeichert
 
-## Einrichten (einmalig, ca. 5 Minuten)
+## Einrichten
 
-1. Auf GitHub ein **neues öffentliches Repository** anlegen, z. B. `bus908-messung`.
-2. Die Dateien `monitor.py`, `auswertung.py`, `requirements.txt`, `README.md` und `.gitignore` hochladen („Add file“ → „Upload files“).
-3. Die Zeitplan-Datei extra anlegen, weil versteckte Ordner beim Hochladen oft fehlen: „Add file“ → „Create new file“, als Namen `.github/workflows/messung.yml` eintippen und den Inhalt der Datei `messung.yml` hineinkopieren.
-4. Reiter **Actions** öffnen und die Workflows aktivieren, falls GitHub danach fragt.
-5. Testlauf: **Actions** → „Messung 908-Anschluss“ → **Run workflow**, „Testlauf“ angehakt lassen. Nach etwa 2 Minuten sollte der Lauf grün sein.
+Die Dateien liegen bereits im Repository. Einmalig:
+
+1. Reiter **Actions** öffnen. Falls GitHub fragt, die Workflows aktivieren.
+2. Optional Testlauf: **Actions** → „Messung 908-Anschluss“ → **Run workflow**, „Testlauf“ angehakt lassen. Nach ca. 2 Minuten sollte der Lauf grün sein.
 
 Danach läuft die Messung von selbst.
 
