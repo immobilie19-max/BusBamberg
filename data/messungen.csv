@@ -1,0 +1,6 @@
+datum,fenster,ankunft_plan,verspaetung_908_min,echtzeit_908,anschluss_plan,bahnhof_plan,anschluss_verpasst,anschluss_ist,bahnhof_ist,mehrzeit_min
+2026-11-16,mittags,11:47,,nein,902 11:50,11:55,nein,902 11:50,11:55,0.0
+2026-11-16,mittags,12:19,0.8,ja,931 12:25,12:30,nein,931 12:26,12:30,0.2
+2026-11-16,mittags,12:47,0.0,ja,902 12:50,12:55,nein,902 12:50,12:55,0.0
+2026-11-16,mittags,13:19,2.0,ja,991 13:23,13:29,ja,931 13:25,13:30,1.0
+2026-11-16,mittags,13:47,4.8,ja,902 13:50,13:55,ja,911 13:55,14:00,5.0
